@@ -1,24 +1,40 @@
-import logo from './logo.svg';
+
 import './App.css';
+import AuthenticationContext from './Context/AuthenticationContext';
+import ProtectedRoutes from './ProtectedRoutes/ProtectedRoutes';
+import Department from './components/Department';
+import Employee from './components/Employee';
+import Home from './components/Home';
+import Leaves from './components/Leaves';
+import Navbar from './components/Navbar';
+import Projects from './components/Projects';
+import SignUp from './components/SignUp';
+import {BrowserRouter as Router,Routes,Route} from 'react-router-dom'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthenticationContext>
+    <Router>
+ 
+      <Routes>
+      
+        <Route path="/signup" element={<SignUp/>}/>
+      </Routes>
+      <ProtectedRoutes>
+      <Routes>
+    <Route path='/' element={<Navbar/>}>
+      <Route index path='/' element={<Home/>}/>
+      <Route path="/projects" element={<Projects/>}/>
+      <Route path="/employee" element={<Employee/>}/>
+      <Route path="/leaves" element={<Leaves/>}/>
+      <Route path="/department" element={<Department/>}/>
+    
+    </Route>
+      </Routes>
+      </ProtectedRoutes>
+   
+    </Router>
+    </AuthenticationContext>
   );
 }
 
